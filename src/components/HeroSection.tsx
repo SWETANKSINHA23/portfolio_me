@@ -149,7 +149,7 @@ const HeroSection = () => {
               </motion.a>
               <motion.a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-medium transition-all duration-200 hover:bg-secondary/90"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/5 border border-white/10 text-white font-medium transition-all duration-200 hover:bg-white/10 hover:border-white/20"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

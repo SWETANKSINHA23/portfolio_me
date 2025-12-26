@@ -33,8 +33,8 @@ const achievements: Achievement[] = [
     badgeEmoji: "👑",
     image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=400&h=300&fit=crop&q=80",
     imageAlt: "Agricultural Digital Marketplace Platform",
-    fallbackGradient: "from-yellow-600/40 via-amber-500/30 to-green-600/40",
-    accentColor: "border-l-yellow-500",
+    fallbackGradient: "from-slate-600/40 via-gray-500/30 to-slate-600/40",
+    accentColor: "border-l-slate-500",
     projectName: "AgriConnect Platform",
     projectIcon: "🌾",
     projectContext: "Agricultural Digital Marketplace",
@@ -51,8 +51,8 @@ const achievements: Achievement[] = [
     badgeEmoji: "🔥",
     image: "https://images.unsplash.com/photo-1565688534245-05d6b5be184a?w=400&h=300&fit=crop&q=80",
     imageAlt: "Intelligent Foundry Monitoring System",
-    fallbackGradient: "from-orange-600/40 via-red-500/30 to-yellow-600/40",
-    accentColor: "border-l-yellow-500",
+    fallbackGradient: "from-gray-600/40 via-slate-500/30 to-zinc-600/40",
+    accentColor: "border-l-slate-500",
     projectName: "MoltenSight AI",
     projectIcon: "🔥",
     projectContext: "Industrial IoT Monitoring System",
@@ -119,8 +119,8 @@ const achievements: Achievement[] = [
     badgeEmoji: "🔥",
     image: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=400&h=300&fit=crop&q=80",
     imageAlt: "LeetCode Problem Solving Achievement",
-    fallbackGradient: "from-orange-600/40 via-yellow-500/30 to-orange-700/40",
-    accentColor: "border-l-orange-600",
+    fallbackGradient: "from-slate-600/40 via-gray-500/30 to-zinc-700/40",
+    accentColor: "border-l-slate-600",
     stats: "Easy: 100+ | Medium: 120+ | Hard: 30+",
     link: "https://leetcode.com/",
   },
@@ -128,9 +128,9 @@ const achievements: Achievement[] = [
 
 const badgeStyles = {
   gold: {
-    bg: "bg-gradient-to-r from-yellow-500 to-amber-500",
-    text: "text-yellow-900",
-    glow: "shadow-lg shadow-yellow-500/30",
+    bg: "bg-gradient-to-r from-slate-500 to-zinc-500",
+    text: "text-slate-100",
+    glow: "shadow-lg shadow-slate-500/30",
     icon: Crown,
     emoji: "👑",
   },
@@ -158,7 +158,7 @@ const badgeStyles = {
 };
 
 const statsData = [
-  { emoji: "🏆", value: "5", label: "Major Wins", color: "text-yellow-400" },
+  { emoji: "🏆", value: "5", label: "Major Wins", color: "text-slate-200" },
   { emoji: "🥈", value: "2", label: "National Finals", color: "text-slate-300" },
   { emoji: "💻", value: "250+", label: "Problems Solved", color: "text-orange-400" },
   { emoji: "🎓", value: "6", label: "Certifications", color: "text-blue-400" },
@@ -294,9 +294,9 @@ const AchievementsSection = () => {
                   {/* Icon Overlay */}
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
                     <div className={`w-14 h-14 rounded-xl bg-background/20 backdrop-blur-md flex items-center justify-center ${badgeStyle.glow}`}>
-                      <IconComponent className={`w-7 h-7 ${achievement.badge === "gold" ? "text-yellow-400" :
-                          achievement.badge === "silver" ? "text-slate-300" :
-                            achievement.badge === "ongoing" ? "text-orange-400" : "text-gray-400"
+                      <IconComponent className={`w-7 h-7 ${achievement.badge === "gold" ? "text-slate-200" :
+                        achievement.badge === "silver" ? "text-slate-300" :
+                          achievement.badge === "ongoing" ? "text-gray-400" : "text-gray-400"
                         }`} />
                     </div>
                   </div>

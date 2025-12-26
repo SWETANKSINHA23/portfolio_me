@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { 
-  Trophy, Medal, Award, Code, Crown, ExternalLink, 
+import {
+  Trophy, Medal, Award, Code, Crown, ExternalLink,
   GraduationCap, BookOpen, Target, Zap, CheckCircle,
   Calendar, MapPin, Star
 } from "lucide-react";
@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 
 const statsData = [
-  { icon: Trophy, label: "Hackathon Wins & Finals", value: "5", color: "from-yellow-400 to-amber-500" },
+  { icon: Trophy, label: "Hackathon Wins & Finals", value: "5", color: "from-slate-400 to-slate-500" },
   { icon: Medal, label: "National Finalist", value: "1", color: "from-slate-300 to-slate-400" },
   { icon: Code, label: "Problems Solved", value: "250+", color: "from-primary to-cyan-400" },
   { icon: Award, label: "Major Certifications", value: "6", color: "from-purple-400 to-purple-600" },
@@ -242,31 +242,27 @@ const Achievements = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
                   whileHover={{ y: -5 }}
-                  className={`glass-panel rounded-2xl p-6 group hover:border-primary/30 transition-all relative overflow-hidden ${
-                    achievement.statusType === "gold" 
-                      ? "border-yellow-500/30 hover:border-yellow-500/50" 
+                  className={`glass-panel rounded-2xl p-6 group hover:border-primary/30 transition-all relative overflow-hidden ${achievement.statusType === "gold"
+                      ? "border-slate-500/30 hover:border-slate-500/50"
                       : "border-slate-400/30 hover:border-slate-400/50"
-                  }`}
+                    }`}
                 >
                   {/* Background Glow */}
-                  <div className={`absolute top-0 right-0 w-32 h-32 rounded-full filter blur-3xl opacity-20 ${
-                    achievement.statusType === "gold" ? "bg-yellow-500" : "bg-slate-400"
-                  }`} />
+                  <div className={`absolute top-0 right-0 w-32 h-32 rounded-full filter blur-3xl opacity-20 ${achievement.statusType === "gold" ? "bg-slate-500" : "bg-slate-400"
+                    }`} />
 
                   <div className="relative z-10">
                     <div className="flex items-start justify-between mb-4">
-                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${
-                        achievement.statusType === "gold" 
-                          ? "bg-gradient-to-br from-yellow-400 to-amber-500" 
+                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${achievement.statusType === "gold"
+                          ? "bg-gradient-to-br from-slate-400 to-zinc-500"
                           : "bg-gradient-to-br from-slate-300 to-slate-400"
-                      }`}>
+                        }`}>
                         <achievement.icon className="w-8 h-8 text-white" />
                       </div>
-                      <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium ${
-                        achievement.statusType === "gold"
-                          ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                      <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium ${achievement.statusType === "gold"
+                          ? "bg-slate-500/20 text-slate-200 border border-slate-500/30"
                           : "bg-slate-400/20 text-slate-300 border border-slate-400/30"
-                      }`}>
+                        }`}>
                         {achievement.statusType === "gold" && <Crown className="w-3.5 h-3.5" />}
                         {achievement.status}
                       </div>
@@ -324,7 +320,7 @@ const Achievements = () => {
                 {/* Left Side - Stats */}
                 <div>
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-500 to-zinc-500 flex items-center justify-center">
                       <Code className="w-8 h-8 text-white" />
                     </div>
                     <div>
@@ -382,10 +378,10 @@ const Achievements = () => {
                     </div>
                     <div>
                       <div className="flex justify-between text-sm mb-1">
-                        <span className="text-yellow-400">Medium</span>
+                        <span className="text-slate-400">Medium</span>
                         <span className="text-muted-foreground">{leetcodeStats.medium}+</span>
                       </div>
-                      <Progress value={48} className="h-2 bg-secondary [&>div]:bg-yellow-500" />
+                      <Progress value={48} className="h-2 bg-secondary [&>div]:bg-slate-500" />
                     </div>
                     <div>
                       <div className="flex justify-between text-sm mb-1">
@@ -572,11 +568,10 @@ const Achievements = () => {
                     className="relative flex items-center gap-6 group"
                   >
                     {/* Timeline Node */}
-                    <div className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center ${
-                      event.type === "gold"
-                        ? "bg-gradient-to-br from-yellow-400 to-amber-500"
+                    <div className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center ${event.type === "gold"
+                        ? "bg-gradient-to-br from-slate-400 to-zinc-500"
                         : "bg-gradient-to-br from-slate-300 to-slate-400"
-                    } group-hover:scale-110 transition-transform`}>
+                      } group-hover:scale-110 transition-transform`}>
                       {event.type === "gold" ? (
                         <Trophy className="w-7 h-7 text-white" />
                       ) : (
@@ -593,9 +588,8 @@ const Achievements = () => {
                             {event.title}
                           </h3>
                         </div>
-                        <Star className={`w-5 h-5 ${
-                          event.type === "gold" ? "text-yellow-400" : "text-slate-400"
-                        }`} />
+                        <Star className={`w-5 h-5 ${event.type === "gold" ? "text-slate-200" : "text-slate-400"
+                          }`} />
                       </div>
                     </div>
                   </motion.div>
@@ -630,16 +624,15 @@ const Achievements = () => {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.1, rotate: 5 }}
-                    className={`aspect-square rounded-2xl flex items-center justify-center ${
-                      index % 3 === 0
-                        ? "bg-gradient-to-br from-yellow-400/20 to-amber-500/20 border border-yellow-500/30"
+                    className={`aspect-square rounded-2xl flex items-center justify-center ${index % 3 === 0
+                        ? "bg-gradient-to-br from-slate-400/20 to-zinc-500/20 border border-slate-500/30"
                         : index % 3 === 1
-                        ? "bg-gradient-to-br from-primary/20 to-cyan-400/20 border border-primary/30"
-                        : "bg-gradient-to-br from-purple-400/20 to-purple-600/20 border border-purple-500/30"
-                    }`}
+                          ? "bg-gradient-to-br from-primary/20 to-cyan-400/20 border border-primary/30"
+                          : "bg-gradient-to-br from-purple-400/20 to-purple-600/20 border border-purple-500/30"
+                      }`}
                   >
                     {index % 3 === 0 ? (
-                      <Trophy className="w-10 h-10 text-yellow-400" />
+                      <Trophy className="w-10 h-10 text-slate-300" />
                     ) : index % 3 === 1 ? (
                       <Award className="w-10 h-10 text-primary" />
                     ) : (

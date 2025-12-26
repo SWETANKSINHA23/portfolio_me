@@ -37,7 +37,7 @@ const getTechBgClass = (name: string): string => {
     "Python": "bg-blue-500/20",
     "Java": "bg-orange-500/20",
     "SQL": "bg-blue-500/20",
-    "JavaScript": "bg-yellow-400/20",
+    "JavaScript": "bg-slate-400/20",
     "HTML": "bg-orange-500/20",
     "CSS": "bg-blue-500/20",
     "Tailwind CSS": "bg-cyan-500/20",

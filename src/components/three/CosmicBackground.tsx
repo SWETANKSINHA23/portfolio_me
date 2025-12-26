@@ -11,7 +11,7 @@ const StarField = ({ count = 6000 }) => {
 
         const color1 = new THREE.Color("#0EA5E9"); // Sky Blue
         const color2 = new THREE.Color("#EC4899"); // Hot Pink
-        const color3 = new THREE.Color("#F59E0B"); // Amber
+        const color3 = new THREE.Color("#64748B"); // Cool Grey
 
         for (let i = 0; i < count; i++) {
             const d = 4000;
