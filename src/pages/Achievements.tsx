@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import AnimatedText from "@/components/AnimatedText";
 import Layout from "@/components/Layout";
+import { TrophyShowcase } from "@/components/TrophyShowcase";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 
@@ -184,6 +185,16 @@ const Achievements = () => {
             </p>
           </motion.div>
 
+          {/* 3D Trophy Showcase */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="mb-16 -mt-8"
+          >
+            <TrophyShowcase />
+          </motion.div>
+
           {/* Stats Banner */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -243,8 +254,8 @@ const Achievements = () => {
                   viewport={{ once: true }}
                   whileHover={{ y: -5 }}
                   className={`glass-panel rounded-2xl p-6 group hover:border-primary/30 transition-all relative overflow-hidden ${achievement.statusType === "gold"
-                      ? "border-slate-500/30 hover:border-slate-500/50"
-                      : "border-slate-400/30 hover:border-slate-400/50"
+                    ? "border-slate-500/30 hover:border-slate-500/50"
+                    : "border-slate-400/30 hover:border-slate-400/50"
                     }`}
                 >
                   {/* Background Glow */}
@@ -254,14 +265,14 @@ const Achievements = () => {
                   <div className="relative z-10">
                     <div className="flex items-start justify-between mb-4">
                       <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${achievement.statusType === "gold"
-                          ? "bg-gradient-to-br from-slate-400 to-zinc-500"
-                          : "bg-gradient-to-br from-slate-300 to-slate-400"
+                        ? "bg-gradient-to-br from-slate-400 to-zinc-500"
+                        : "bg-gradient-to-br from-slate-300 to-slate-400"
                         }`}>
                         <achievement.icon className="w-8 h-8 text-white" />
                       </div>
                       <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium ${achievement.statusType === "gold"
-                          ? "bg-slate-500/20 text-slate-200 border border-slate-500/30"
-                          : "bg-slate-400/20 text-slate-300 border border-slate-400/30"
+                        ? "bg-slate-500/20 text-slate-200 border border-slate-500/30"
+                        : "bg-slate-400/20 text-slate-300 border border-slate-400/30"
                         }`}>
                         {achievement.statusType === "gold" && <Crown className="w-3.5 h-3.5" />}
                         {achievement.status}
@@ -569,8 +580,8 @@ const Achievements = () => {
                   >
                     {/* Timeline Node */}
                     <div className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center ${event.type === "gold"
-                        ? "bg-gradient-to-br from-slate-400 to-zinc-500"
-                        : "bg-gradient-to-br from-slate-300 to-slate-400"
+                      ? "bg-gradient-to-br from-slate-400 to-zinc-500"
+                      : "bg-gradient-to-br from-slate-300 to-slate-400"
                       } group-hover:scale-110 transition-transform`}>
                       {event.type === "gold" ? (
                         <Trophy className="w-7 h-7 text-white" />
@@ -625,10 +636,10 @@ const Achievements = () => {
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     className={`aspect-square rounded-2xl flex items-center justify-center ${index % 3 === 0
-                        ? "bg-gradient-to-br from-slate-400/20 to-zinc-500/20 border border-slate-500/30"
-                        : index % 3 === 1
-                          ? "bg-gradient-to-br from-primary/20 to-cyan-400/20 border border-primary/30"
-                          : "bg-gradient-to-br from-purple-400/20 to-purple-600/20 border border-purple-500/30"
+                      ? "bg-gradient-to-br from-slate-400/20 to-zinc-500/20 border border-slate-500/30"
+                      : index % 3 === 1
+                        ? "bg-gradient-to-br from-primary/20 to-cyan-400/20 border border-primary/30"
+                        : "bg-gradient-to-br from-purple-400/20 to-purple-600/20 border border-purple-500/30"
                       }`}
                   >
                     {index % 3 === 0 ? (

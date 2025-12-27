@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import gsap from "gsap";
 
 const navLinks = [
   { href: "/#home", label: "Home" },
@@ -12,10 +13,69 @@ const navLinks = [
   { href: "/#contact", label: "Contact" },
 ];
 
+interface MagneticNavLinkProps {
+  href: string;
+  children: React.ReactNode;
+  isActive: boolean;
+  onClick?: () => void;
+  // We pass a ref callback or similar to parent if we want to track position for the slider, 
+  // but simpler: use a data attribute or ID on the link and let the parent find it.
+}
+
+const MagneticNavLink = ({ href, children, isActive, onClick }: MagneticNavLinkProps) => {
+  const linkRef = useRef<HTMLAnchorElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const link = linkRef.current;
+    if (!link) return;
+
+    const rect = link.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const deltaX = (e.clientX - centerX) * 0.3; // Max pull factor
+    const deltaY = (e.clientY - centerY) * 0.3;
+
+    gsap.to(link, {
+      x: deltaX,
+      y: deltaY,
+      duration: 0.3,
+      ease: 'power2.out',
+    });
+  };
+
+  const handleMouseLeave = () => {
+    if (!linkRef.current) return;
+    gsap.to(linkRef.current, {
+      x: 0,
+      y: 0,
+      duration: 0.5,
+      ease: 'elastic.out(1, 0.3)',
+    });
+  };
+
+  return (
+    <a
+      ref={linkRef}
+      href={href}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      className={`relative px-4 py-2 text-sm font-medium tracking-wide transition-colors duration-300 z-10 block ${isActive ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+        } nav-link item-${href.replace("/#", "")}`} // Add specific class for GSAP targeting
+    >
+      {children}
+    </a>
+  );
+};
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+
+  const navListRef = useRef<HTMLUListElement>(null);
+  const indicatorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +87,8 @@ const Navbar = () => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          if (rect.top <= 100) {
+          // Offset for header height
+          if (rect.top <= 150) {
             setActiveSection(section);
             break;
           }
@@ -39,15 +100,41 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return (
+  // GSAP Sliding Indicator Logic
+  useLayoutEffect(() => {
+    if (!navListRef.current || !indicatorRef.current) return;
 
+    const activeLink = navListRef.current.querySelector(`.item-${activeSection}`);
+
+    if (activeLink) {
+      const parentRect = navListRef.current.getBoundingClientRect();
+      const linkRect = activeLink.getBoundingClientRect();
+
+      // Calculate relative position within the list
+      const left = linkRect.left - parentRect.left;
+      const width = linkRect.width;
+
+      gsap.to(indicatorRef.current, {
+        x: left,
+        width: width,
+        opacity: 1,
+        duration: 0.6,
+        ease: "elastic.out(1, 0.7)",
+      });
+    } else {
+      // If no active link (e.g. top of page), maybe hide or default? 
+      // usually 'home' is active.
+    }
+  }, [activeSection]);
+
+  return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-        ? "bg-background/60 backdrop-blur-xl border-b border-white/5 py-3 shadow-lg shadow-primary/5"
-        : "py-5 bg-transparent"
+          ? "bg-background/60 backdrop-blur-xl border-b border-white/5 py-3 shadow-lg shadow-primary/5"
+          : "py-5 bg-transparent"
         }`}
     >
       <nav className="container mx-auto px-6 flex items-center justify-between">
@@ -64,36 +151,27 @@ const Navbar = () => {
           <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-primary/0 via-primary to-primary/0 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
         </motion.a>
 
-        {/* Desktop Navigation - Liquid Metal */}
-        <div className="hidden lg:flex items-center bg-secondary/30 backdrop-blur-md rounded-full px-2 py-1.5 border border-white/5 shadow-inner">
-          <ul className="flex items-center gap-1">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href.replace("/#", "");
-              return (
-                <li key={link.href} className="relative">
-                  <a
-                    href={link.href}
-                    className={`relative px-5 py-2 text-sm font-medium tracking-wide transition-colors duration-300 z-10 block ${isActive
-                      ? "text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground"
-                      }`}
-                  >
-                    {link.label}
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeSection"
-                        className="absolute inset-0 bg-primary rounded-full -z-10 shadow-[0_0_20px_-5px_rgba(14,165,233,0.6)]"
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 30,
-                        }}
-                      />
-                    )}
-                  </a>
-                </li>
-              );
-            })}
+        {/* Desktop Navigation - Magnetic & Animated */}
+        <div className="hidden lg:flex items-center bg-secondary/30 backdrop-blur-md rounded-full px-1.5 py-1.5 border border-white/5 shadow-inner">
+          <ul ref={navListRef} className="flex items-center relative">
+
+            {/* Sliding Active Indicator */}
+            <div
+              ref={indicatorRef}
+              className="absolute top-0 bottom-0 bg-primary rounded-full z-0 shadow-[0_0_20px_-5px_rgba(14,165,233,0.6)]"
+              style={{ height: '100%', opacity: 0 }} // Height handled by parent padding typically, closely matching links
+            />
+
+            {navLinks.map((link) => (
+              <li key={link.href} className="relative z-10">
+                <MagneticNavLink
+                  href={link.href}
+                  isActive={activeSection === link.href.replace("/#", "")}
+                >
+                  {link.label}
+                </MagneticNavLink>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -152,8 +230,8 @@ const Navbar = () => {
                   <a
                     href={link.href}
                     className={`block text-2xl font-medium tracking-tight ${activeSection === link.href.replace("/#", "")
-                      ? "text-primary ml-4"
-                      : "text-muted-foreground hover:text-foreground hover:ml-2"
+                        ? "text-primary ml-4"
+                        : "text-muted-foreground hover:text-foreground hover:ml-2"
                       } transition-all duration-300`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Github, Calendar } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { ProjectCard3D } from "./ProjectCard3D";
 
 const projects = [
   {
@@ -48,52 +48,6 @@ const projects = [
   },
 ];
 
-// Image component with loading state and fallback
-const ProjectImage = ({
-  src,
-  alt,
-  fallbackGradient
-}: {
-  src: string;
-  alt: string;
-  fallbackGradient: string;
-}) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-
-  return (
-    <>
-      {/* Loading skeleton */}
-      {isLoading && !hasError && (
-        <div className="absolute inset-0 bg-muted animate-pulse" />
-      )}
-
-      {/* Fallback gradient on error */}
-      {hasError && (
-        <div className={`absolute inset-0 bg-gradient-to-br ${fallbackGradient}`}>
-          <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/20 blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-24 h-24 rounded-full bg-secondary/20 blur-3xl" />
-        </div>
-      )}
-
-      {/* Actual image */}
-      {!hasError && (
-        <img
-          src={src}
-          alt={alt}
-          loading="lazy"
-          onLoad={() => setIsLoading(false)}
-          onError={() => {
-            setHasError(true);
-            setIsLoading(false);
-          }}
-          className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110 ${isLoading ? 'opacity-0' : 'opacity-100'
-            }`}
-        />
-      )}
-    </>
-  );
-};
 
 const ProjectsSection = () => {
   return (
@@ -121,120 +75,7 @@ const ProjectsSection = () => {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {projects.map((project, index) => (
-            <motion.article
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="glass-panel rounded-2xl overflow-hidden group hover:border-primary/30 transition-all"
-            >
-              {/* Project Image/Header */}
-              <div className="aspect-video relative overflow-hidden">
-                {/* Project Image with Loading State */}
-                <ProjectImage
-                  src={project.image}
-                  alt={project.imageAlt}
-                  fallbackGradient={project.fallbackGradient}
-                />
-
-                {/* Gradient Overlay - Always visible */}
-                <div className={`absolute inset-0 bg-gradient-to-t ${project.gradientOverlay} z-10`} />
-
-                {/* Metric Badge */}
-                <div className="absolute top-4 right-4 z-20">
-                  <span className="px-3 py-1 rounded-full bg-primary/90 text-primary-foreground text-xs font-semibold backdrop-blur-sm">
-                    {project.metric}
-                  </span>
-                </div>
-
-                {/* Project Number */}
-                <div className="absolute bottom-4 left-4 z-20">
-                  <div className="w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center border border-primary/30">
-                    <span className="text-lg font-bold text-primary">
-                      {index + 1}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4 z-30">
-                  <motion.a
-                    href={project.live}
-                    className="p-3 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/25"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-label="View Details"
-                  >
-                    <ExternalLink size={20} />
-                  </motion.a>
-                  <motion.a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-muted text-foreground shadow-lg"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-label="View Code"
-                  >
-                    <Github size={20} />
-                  </motion.a>
-                </div>
-              </div>
-
-              {/* Project Info */}
-              <div className="p-6">
-                {/* Date */}
-                <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-                  <Calendar size={12} />
-                  {project.date}
-                </div>
-
-                <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
-                  {project.description}
-                </p>
-
-                {/* Tech Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {project.tags.slice(0, 4).map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2 py-0.5 rounded-full bg-muted text-xs font-medium text-muted-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                  {project.tags.length > 4 && (
-                    <span className="px-2 py-0.5 rounded-full bg-muted text-xs font-medium text-muted-foreground">
-                      +{project.tags.length - 4}
-                    </span>
-                  )}
-                </div>
-
-                {/* Links */}
-                <div className="flex items-center gap-4">
-                  <a
-                    href={project.live}
-                    className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1"
-                  >
-                    View Details
-                    <ExternalLink size={14} />
-                  </a>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
-                  >
-                    View Code
-                    <Github size={14} />
-                  </a>
-                </div>
-              </div>
-            </motion.article>
+            <ProjectCard3D key={project.title} project={project} index={index} />
           ))}
         </div>
 

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Award, ExternalLink, Database, Cloud, Brain, Code, GraduationCap, BookOpen, Eye, BarChart3 } from "lucide-react";
 import { useState } from "react";
 
+
 // Technology icon URLs from Simple Icons CDN
 const techIcons: Record<string, { icon: string; color: string }> = {
   // Languages
@@ -362,6 +363,9 @@ const SkillsSection = () => {
             Technical <span className="gradient-text">Expertise</span>
           </h2>
         </motion.div>
+
+        {/* 3D Constellations */}
+
 
         {/* Skills Grid */}
         <div className="grid md:grid-cols-3 gap-6 mb-16">

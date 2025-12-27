@@ -17,6 +17,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import Layout from "@/components/Layout";
+import { InteractiveGlobe } from "@/components/InteractiveGlobe";
 
 const quickStats = [
   { icon: GraduationCap, label: "GPA", value: "7.5/10" },
@@ -347,11 +348,14 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="flex flex-col md:flex-row items-center justify-between mb-12 gap-8"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
               My <span className="gradient-text">Journey</span>
             </h2>
+            <div className="w-full md:w-1/2 lg:w-1/3 h-[300px] md:h-auto">
+              <InteractiveGlobe />
+            </div>
           </motion.div>
 
           {/* Timeline */}

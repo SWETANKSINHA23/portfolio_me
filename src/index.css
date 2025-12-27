@@ -9,14 +9,14 @@
 
 @layer base {
   :root {
-    /* Core Colors - Cosmic Glass Theme */
-    --background: 240 10% 3.9%;
-    /* #0D0D0D - Richer Black */
+    /* Core Colors - Silicon Valley Slate */
+    --background: 0 0% 5%;
+    /* #0D0D0D - Deep Slate Black */
     --foreground: 0 0% 98%;
-    /* #FAFAFA - Softer white */
+    /* #FAFAFA - Text Primary */
 
     --card: 0 0% 10%;
-    /* #1A1A1A - Warmer charcoal */
+    /* #1A1A1A - Background Secondary */
     --card-foreground: 0 0% 98%;
 
     --popover: 0 0% 10%;
@@ -24,28 +24,30 @@
 
     /* Primary - Sky Blue (Trust & Innovation) */
     --primary: 199 89% 48%;
-    /* #0EA5E9 */
+    /* #0EA5E9 - Sky Primary */
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Cool Grey (Professional & Sleek) */
-    --secondary: 215 16% 47%;
-    /* #64748B */
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary - Cool Grey / Text Secondary */
+    --secondary: 240 5% 84%;
+    /* #D4D4D8 - Text Secondary */
+    --secondary-foreground: 0 0% 10%;
 
-    /* Accent - Hot Pink (Energy & Creativity) */
+    /* Accent - Amber & Pink */
     --accent: 330 81% 60%;
-    /* #EC4899 */
+    /* #EC4899 - Pink Accent (Default) */
+    --accent-amber: 38 92% 50%;
+    /* #F59E0B - Amber Accent */
     --accent-foreground: 0 0% 100%;
 
     --muted: 240 4% 16%;
-    --muted-foreground: 240 5% 84%;
-    /* #D4D4D8 - Zinc-300 */
+    --muted-foreground: 240 5% 44%;
+    /* #71717A - Text Muted */
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 18%;
-    /* #2D2D2D */
+    --border: 0 0% 18%;
+    /* #2D2D2D - Border Subtle */
     --input: 240 6% 18%;
     --ring: 199 89% 48%;
 

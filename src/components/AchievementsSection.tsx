@@ -350,7 +350,7 @@ const AchievementsSection = () => {
                       {achievement.techStack.map((tech) => (
                         <span
                           key={tech}
-                          className="px-1.5 py-0.5 rounded text-[10px] bg-secondary/50 text-muted-foreground border border-border/30"
+                          className="px-2 py-0.5 rounded text-[10px] bg-zinc-800/80 text-zinc-100 border border-zinc-700/50"
                         >
                           {tech}
                         </span>

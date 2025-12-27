@@ -16,10 +16,11 @@ import {
   Github,
   Linkedin,
 } from "lucide-react";
+import { useRef, useEffect } from "react";
 import AnimatedText from "./AnimatedText";
 import TechCard from "./TechCard";
-import FloatingOrbs from "./three/features/FloatingOrbs";
-import { Canvas } from "@react-three/fiber";
+import { Hero3D } from "./Hero3D";
+import gsap from "gsap";
 
 const professionTitles = [
   "AI/ML Engineer",
@@ -61,17 +62,39 @@ const itemVariants = {
 };
 
 const HeroSection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // GSAP entrance animations from prompt
+    const ctx = gsap.context(() => {
+      gsap.from('.hero-title', {
+        opacity: 0,
+        y: 100,
+        duration: 1.5,
+        ease: 'power4.out',
+        delay: 0.5,
+      });
+
+      gsap.from('.hero-subtitle', {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: 'power3.out',
+        delay: 1,
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16"
     >
       {/* 3D Floating Orb Network */}
-      <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
-          <FloatingOrbs />
-        </Canvas>
-      </div>
+      {/* 3D Floating Orb Network */}
+      <Hero3D />
 
       {/* Subtle Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-subtle pointer-events-none" />
@@ -96,7 +119,7 @@ const HeroSection = () => {
             {/* Main Heading */}
             <motion.h1
               variants={itemVariants}
-              className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight mb-4"
+              className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight mb-4 hero-title"
             >
               <span className="text-foreground">I'm </span>
               <span className="gradient-text">Swetank</span>
@@ -105,7 +128,7 @@ const HeroSection = () => {
             {/* Animated Profession Text */}
             <motion.div
               variants={itemVariants}
-              className="text-xl sm:text-2xl lg:text-3xl font-medium text-muted-foreground mb-6 h-10"
+              className="text-xl sm:text-2xl lg:text-3xl font-medium text-muted-foreground mb-6 h-10 hero-subtitle"
             >
               <AnimatedText texts={professionTitles} />
             </motion.div>
