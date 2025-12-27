@@ -76,12 +76,38 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
+    /* Let Lenis handle smoothing */
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* GPU acceleration for animated elements */
+  .hero-section,
+  .project-card,
+  .skill-card,
+  .achievement-card {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Optimize images */
+  img {
+    content-visibility: auto;
+    image-rendering: -webkit-optimize-contrast;
+  }
+
+  /* Optimize backdrop blur */
+  .glass-panel {
+    transform: translateZ(0);
+    /* GPU acceleration */
   }
 
   /* Animated Noise Texture Overlay */

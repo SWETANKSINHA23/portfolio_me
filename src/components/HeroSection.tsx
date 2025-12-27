@@ -19,7 +19,7 @@ import {
 import { useRef, useEffect } from "react";
 import AnimatedText from "./AnimatedText";
 import TechCard from "./TechCard";
-import { Hero3D } from "./Hero3D";
+const Hero3D = lazy(() => import("./Hero3D").then(module => ({ default: module.Hero3D })));
 import gsap from "gsap";
 
 const professionTitles = [
@@ -57,7 +57,10 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4 },
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1], // Custom easing for cleaner motion
+    },
   },
 };
 
@@ -94,7 +97,10 @@ const HeroSection = () => {
     >
       {/* 3D Floating Orb Network */}
       {/* 3D Floating Orb Network */}
-      <Hero3D />
+      {/* 3D Floating Orb Network */}
+      <Suspense fallback={<div className="absolute inset-0 z-0" />}>
+        <Hero3D />
+      </Suspense>
 
       {/* Subtle Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-subtle pointer-events-none" />

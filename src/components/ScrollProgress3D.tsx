@@ -93,7 +93,12 @@ export const ScrollProgress3D = () => {
             className="fixed top-0 left-0 h-1.5 z-[9999999] pointer-events-none overflow-hidden shadow-[0_0_15px_rgba(14,165,233,0.6)]"
             style={{ width: '0%' }}
         >
-            <Canvas camera={{ position: [0, 0, 1], fov: 75 }} resize={{ scroll: false }}>
+            <Canvas
+                camera={{ position: [0, 0, 1], fov: 75 }}
+                resize={{ scroll: false }}
+                dpr={[1, 1.5]}
+                gl={{ antialias: false, powerPreference: "high-performance", alpha: true }}
+            >
                 <LiquidBar />
             </Canvas>
         </div>

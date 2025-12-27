@@ -11,7 +11,7 @@ interface IconMeshProps {
 
 const GlassCube = ({ position, color, delay = 0 }: IconMeshProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
-  
+
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3 + delay) * 0.2;
@@ -38,7 +38,7 @@ const GlassCube = ({ position, color, delay = 0 }: IconMeshProps) => {
 
 const GlassSphere = ({ position, color, delay = 0 }: IconMeshProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
-  
+
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime + delay) * 0.2;
@@ -64,7 +64,7 @@ const GlassSphere = ({ position, color, delay = 0 }: IconMeshProps) => {
 
 const GlassOctahedron = ({ position, color, delay = 0 }: IconMeshProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
-  
+
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.rotation.y = state.clock.elapsedTime * 0.3 + delay;
@@ -104,13 +104,14 @@ const FloatingIcons3D = () => {
       <Canvas
         camera={{ position: [0, 0, 8], fov: 50 }}
         dpr={[1, 1.5]}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+        performance={{ min: 0.5 }}
       >
         <color attach="background" args={['transparent']} />
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <pointLight position={[-5, -5, -5]} intensity={0.5} color="#3B82F6" />
-        
+
         {icons.map((icon, index) => (
           <icon.Component
             key={index}
